@@ -89,6 +89,26 @@
 
       </header>
     
+    
+      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字数: </span>
+        <span class="post-count">6</span>
+      </span>
+    </span>
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  预计阅读时长: </span>
+        <span class="post-count">1mins</span>
+        
+      </span>
+    </span>
+</div>
+  
         </header>
     <div class="article-entry" itemprop="articleBody">
       
@@ -100,8 +120,6 @@
     <footer class="article-footer">
       <a data-url="http://yoursite.com/maze/index.html" data-id="ckbore9do0006t0szb56d5wjn" class="article-share-link">Share</a>
       
-        <a href="http://yoursite.com/maze/index.html#disqus_thread" class="article-comment-link">Comments</a>
-      
       
     </footer>
   </div>
@@ -111,12 +129,9 @@
 </article>
 
 
-<section id="comments">
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
 
+  <section id="comments" class="vcomment">
+  </section>
 </section>
         
           <aside id="sidebar">
@@ -138,7 +153,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Amusement/">Amusement</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Exploration/">Exploration</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Introduction/">Introduction</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Amusement/">Amusement</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Exploration/">Exploration</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Introduction/">Introduction</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -148,7 +163,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Brain-Monster/" rel="tag">Brain Monster</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Introduction/" rel="tag">Introduction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LYRICS/" rel="tag">LYRICS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/What-are-the-worlds/" rel="tag">What are the worlds </a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Brain-Monster/" rel="tag">Brain Monster</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Introduction/" rel="tag">Introduction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LYRICS/" rel="tag">LYRICS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/What-are-the-worlds/" rel="tag">What are the worlds </a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -158,7 +173,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -219,20 +234,6 @@
   
 </nav>
     
-<script>
-  var disqus_shortname = 'cecilego';
-  
-  var disqus_url = 'http://yoursite.com/maze/index.html';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
@@ -251,8 +252,31 @@
 
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST_INFO = ['nick','mail','link'];
+    var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+        return GUEST_INFO.indexOf(item) > -1
+    });
+    var notify = 'false' == true;
+    var verify = 'false' == true;
+    new Valine({
+      el: '.vcomment',
+      notify: notify,
+      verify: verify,
+      appId: "qyVhC9FNRmF2ql1sOy9wTTqr-gzGzoHsz",
+      appKey: "NmdPQ06YtDBBruWAf6ptaTu6",
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      pageSize: '10',
+      avatar: '',
+      lang: '',
+      visitor: 'true'
+    });
+  </script>
+
   </div>
   <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
   </script>
-</body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
