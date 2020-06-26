@@ -67,6 +67,157 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-爬！" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/fortheme/2020/06/26/%E7%88%AC%EF%BC%81/" class="article-date">
+  <time datetime="2020-06-26T07:37:00.000Z" itemprop="datePublished">2020-06-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/fortheme/categories/Exploration/">Exploration</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fortheme/2020/06/26/%E7%88%AC%EF%BC%81/">爬！</a>
+    </h1>
+  
+
+      </header>
+    
+    
+      <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字数: </span>
+        <span class="post-count">958</span>
+      </span>
+    </span>
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  预计阅读时长: </span>
+        <span class="post-count">5mins</span>
+        
+      </span>
+    </span>
+</div>
+  
+        </header>
+    <div class="article-entry" itemprop="articleBody">
+      
+    
+        <p>大概是本站建站以来最干货的一篇？<br>然而还是因为代理的问题以失败告终，这该死的墙啊啊啊<br>本来想做个词云玩玩，现在也只有想想了TAT哇的一声哭出来<br>墙内的网站问题应该是不大了。。<br>并且我发现自己真的是一条没有耐心写过程博的暴躁生物233333<br>大概本系列的下期会出text mining 相关了~<br>全过程代码：</p>
+<pre><code>#crawler test
+#https://pxncong.rocks/
+url设置
+urllist=0
+page=1:5x
+urllist[page]=paste(&quot;https://pxncong.rocks/page-&quot;,page,sep=&apos;&apos;)
+#伪装代理地址
+UserAgent=c(
+&quot;Mozilla/5.0 (Windows NT 6.1; rv:2.0.1) Gecko/20100101 Firefox/4.0.1&quot;,
+&quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko)   Chrome/31.0.1650.16 Safari/537.36&quot;,
+&quot;Mozilla/5.0 (Windows NT 6.1; Intel Mac OS X 10.6; rv:7.0.1) Gecko/20100101 Firefox/7.0.1&quot;,
+&quot;Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36 OPR/18.0.1284.68&quot;,
+&quot;Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)&quot;,
+&quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)&quot;,
+&quot;Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)&quot;,
+&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36&quot;,
+&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0.1) Gecko/20100101 Firefox/4.0.1&quot;,
+&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:7.0.1) Gecko/20100101 Firefox/7.0.1&quot;,
+&quot;Opera/9.80 (Macintosh; Intel Mac OS X 10.9.1) Presto/2.12.388 Version/12.16&quot;,
+&quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36 OPR/18.0.1284.68&quot;,
+&quot;Mozilla/5.0 (iPad; CPU OS 7_0 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/30.0.1599.12 Mobile/11A465 Safari/8536.25&quot;,
+&quot;Mozilla/5.0 (iPad; CPU OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4&quot;,
+&quot;Mozilla/5.0 (iPad; CPU OS 7_0_2 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A501 Safari/9537.53&quot;,
+&quot;Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_8; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50&quot;,    
+&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50&quot;,
+&quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0&quot;)
+n=length(UserAgent)
+myheader&lt;-c(
+&quot;User-Agent&quot;=UserAgent[sample(n-1,1)],#随机选择
+&quot;Accept-Language&quot;=&quot;en-us&quot;,
+&quot;Connection&quot;=&quot;keep-alive&quot;,
+&quot;Accept-Charset&quot;=&quot;GB2312,utf-8;q=0.7,*;q=0.7&quot;)
+#设置代理
+Sys.setenv(&quot;http_proxy&quot;=&quot;http://保密保密&quot;)  
+Sys.unsetenv(&quot;http_proxy&quot;)#取消代理
+#网页爬取
+for(url in urllist){
+temp&lt;-getURL(url,encoding=&quot;utf-8&quot;,httpheader=myheader)
+news=temp%&gt;%html_nodes(&apos;h4 a&apos;)
+title=news%&gt;%html_text()
+clicks=temp%&gt;%html_nodes(&apos;span.aw-small-text&apos;)
+click=clicks%&gt;%html_text()
+link=news%&gt;%html_attrs()
+link1=c(1:length(link))
+for (i in 1:length(link)) {
+link1[i]=link[[i]][3]
+}
+link2=paste(&quot;https://pxncong.rocks&quot;,link1,sep=&quot;&quot;)
+news_content=c(1:length(link2))
+for(i in 1:length(link2)){
+news_content[i]=read_html(link2[i])%&gt;%html_nodes(&apos;div.markitup-box&apos;)%&gt;%html_text()
+}
+news_count=c(1:length(link2))
+for(i in 1:length(link2)){
+news_count[i]=read_html(link1[i])%&gt;%html_nodes(&apos;b.count&apos;)%&gt;%html_text()
+}
+record[page]=data.frame(title,click,news_content,news_count)
+Sys.sleep(5)
+}
+#不隐藏header
+for(url in urllist){
+temp&lt;-read_html(url)
+news=temp%&gt;%html_nodes(&apos;h4 a&apos;)
+title=news%&gt;%html_text()#获取标题
+clicks=temp%&gt;%html_nodes(&apos;span.aw-small-text&apos;)
+click=clicks%&gt;%html_text()#获取点击量、发帖时间
+link=news%&gt;%html_attrs()
+link1=c(1:length(link))
+for (i in 1:length(link)) {
+link1[i]=link[[i]][3]
+}
+link2=paste(&quot;https://pxncong.rocks&quot;,link1,sep=&quot;&quot;)
+news_content=c(1:length(link2))
+for(i in 1:length(link2)){
+news_content[i]=read_html(link2[i])%&gt;%html_nodes(&apos;div.markitup-box&apos;)%&gt;%html_text()
+}#获取回帖内容
+news_count=c(1:length(link2))
+for(i in 1:length(link2)){
+news_count[i]=read_html(link2[i])%&gt;%html_nodes(&apos;b.count&apos;)%&gt;%html_text()
+}#获取点赞数
+record[page]=data.frame(title,click,news_content,news_count)#记录成数据框
+Sys.sleep(5)}
+#单页尝试
+temp&lt;-read_html(&quot;https://www.google.com&quot;)
+temp#失败TAT</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/26/%E7%88%AC%EF%BC%81/" data-id="ckbvwtvmj00118osz9j7z3tzy" class="article-share-link">Share</a>
+      
+        <a href="https://spirit.cecilego.monster/fortheme/2020/06/26/%E7%88%AC%EF%BC%81/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/fortheme/tags/R/" rel="tag">R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/fortheme/tags/Web-Crawlers/" rel="tag">Web Crawlers</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-he-Evolution-of-Economic-Thought（6-5）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/fortheme/2020/06/20/he-Evolution-of-Economic-Thought%EF%BC%886-5%EF%BC%89/" class="article-date">
@@ -144,7 +295,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/20/he-Evolution-of-Economic-Thought%EF%BC%886-5%EF%BC%89/" data-id="ckbvtw8fn000pw8szf4oh2cpz" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/20/he-Evolution-of-Economic-Thought%EF%BC%886-5%EF%BC%89/" data-id="ckbvwtvme000t8osz97mb2eu8" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/20/he-Evolution-of-Economic-Thought%EF%BC%886-5%EF%BC%89/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -217,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/16/Cells/" data-id="ckbvtw8es0002w8sza5lmcoez" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/16/Cells/" data-id="ckbvwtvlc00058oszemhl8geb" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/16/Cells/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -342,7 +493,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/16/e-Evolution-of-Economic-Thought-6/" data-id="ckbvtw8f9000ew8sz8o0ygu7z" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/16/e-Evolution-of-Economic-Thought-6/" data-id="ckbvwtvlq000f8osz5qvj6l0c" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/16/e-Evolution-of-Economic-Thought-6/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -423,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/15/yrics/" data-id="ckbvtw8ft000xw8sz80f92l9u" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/15/yrics/" data-id="ckbvwtvmq00158osz8cym5p5m" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/15/yrics/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -543,7 +694,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/14/he-Evolution-of-Economic-Thought-5/" data-id="ckbvtw8fl000lw8szb7e44usu" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/14/he-Evolution-of-Economic-Thought-5/" data-id="ckbvwtvmb000p8oszdkv0a8qy" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/14/he-Evolution-of-Economic-Thought-5/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -615,7 +766,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/13/%E4%B8%AA%E5%B0%8F%E8%AF%B4%E6%9E%84%E6%80%9D/" data-id="ckbvtw8g10011w8sz96jd95h6" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/13/%E4%B8%AA%E5%B0%8F%E8%AF%B4%E6%9E%84%E6%80%9D/" data-id="ckbvwtvmh000x8oszh5tb3pqx" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/13/%E4%B8%AA%E5%B0%8F%E8%AF%B4%E6%9E%84%E6%80%9D/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -710,7 +861,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/12/The-Evolution-of-Economic-Thought-4/" data-id="ckbvtw8f8000cw8szgbkt5fvd" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/12/The-Evolution-of-Economic-Thought-4/" data-id="ckbvwtvli00098oszgo2z6isy" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/12/The-Evolution-of-Economic-Thought-4/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -796,7 +947,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/10/he-Evolution-of-Economic-Thought-3/" data-id="ckbvtw8fb000hw8sz2ydff3mx" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/10/he-Evolution-of-Economic-Thought-3/" data-id="ckbvwtvly000h8osz0918b3og" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/10/he-Evolution-of-Economic-Thought-3/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -904,85 +1055,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/08/The-Evolution-of-Economic-Thought-2/" data-id="ckbvtw8ew0005w8sz74s284ly" class="article-share-link">Share</a>
+      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/08/The-Evolution-of-Economic-Thought-2/" data-id="ckbvwtvlh00088osz8qmxdbro" class="article-share-link">Share</a>
       
         <a href="https://spirit.cecilego.monster/fortheme/2020/06/08/The-Evolution-of-Economic-Thought-2/#disqus_thread" class="article-comment-link">Comments</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/fortheme/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-The-Evolution-of-Economic-Thought-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/fortheme/2020/06/05/The-Evolution-of-Economic-Thought-1/" class="article-date">
-  <time datetime="2020-06-05T13:34:00.000Z" itemprop="datePublished">2020-06-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/fortheme/categories/Exploration/">Exploration</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fortheme/2020/06/05/The-Evolution-of-Economic-Thought-1/">The Evolution of Economic Thought(1)</a>
-    </h1>
-  
-
-      </header>
-    
-    
-      <div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字数: </span>
-        <span class="post-count">145</span>
-      </span>
-    </span>
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  预计阅读时长: </span>
-        <span class="post-count">1mins</span>
-        
-      </span>
-    </span>
-</div>
-  
-        </header>
-    <div class="article-entry" itemprop="articleBody">
-      
-    
-        <ul>
-<li><h4><span id="jing-ji-si-xiang-shi-jian-xu-lie-biao">经济思想时间序列表</span><a href="#jing-ji-si-xiang-shi-jian-xu-lie-biao" class="header-anchor">#</a></h4><div style="transform:rotate(270deg)">
-<div class="rotateone">
-<img src="../images/0.jpg" width="50%" height="50%">
- </div>
- </div>
-</li>
-<li><h4><span id="yan-jiu-jing-ji-si-xiang-xue-pai-de-wu-ge-zhu-yao-wen-ti">研究经济思想学派的五个主要问题</span><a href="#yan-jiu-jing-ji-si-xiang-xue-pai-de-wu-ge-zhu-yao-wen-ti" class="header-anchor">#</a></h4><h6><span id="ke-yi-shi-tu-ying-yong-dao-ge-ge-xue-ke-ma">（可以试图应用到各个学科吗？）</span><a href="#ke-yi-shi-tu-ying-yong-dao-ge-ge-xue-ke-ma" class="header-anchor">#</a></h6><h5><span id="1-zhe-ge-xue-pai-chan-sheng-de-li-shi-bei-jing-shi-shi-me">1.这个学派产生的历史背景是什么</span><a href="#1-zhe-ge-xue-pai-chan-sheng-de-li-shi-bei-jing-shi-shi-me" class="header-anchor">#</a></h5><h6><span id="yi-ran-you-hen-duo-xue-zhe-ren-wei-xue-ke-de-nei-bu-yin-su-shi-li-lun-jin-bu-de-zhu-yao-yuan-yin-ru-geogre-j-stiger">依然有很多学者认为学科的内部因素是理论进步的主要原因，如Geogre J. Stiger。</span><a href="#yi-ran-you-hen-duo-xue-zhe-ren-wei-xue-ke-de-nei-bu-yin-su-shi-li-lun-jin-bu-de-zhu-yao-yuan-yin-ru-geogre-j-stiger" class="header-anchor">#</a></h6><h5><span id="2-zhe-ge-xue-pai-de-zhu-yao-xin-tiao-shi-shi-me">2.这个学派的主要信条是什么</span><a href="#2-zhe-ge-xue-pai-de-zhu-yao-xin-tiao-shi-shi-me" class="header-anchor">#</a></h5><h5><span id="3-zhe-ge-xue-pai-dui-shui-you-li-huo-wei-shui-mou-li">3.这个学派对谁有利或为谁谋利</span><a href="#3-zhe-ge-xue-pai-dui-shui-you-li-huo-wei-shui-mou-li" class="header-anchor">#</a></h5><h5><span id="4-zhe-ge-xue-pai-zai-dang-shi-shi-ru-he-zheng-que-you-xiao-de">4.这个学派在当时是如何正确有效的</span><a href="#4-zhe-ge-xue-pai-zai-dang-shi-shi-ru-he-zheng-que-you-xiao-de" class="header-anchor">#</a></h5><h5><span id="5-zhe-ge-xue-pai-de-na-xie-xin-tiao-ju-you-chang-yuan-gong-xian">5.这个学派的哪些信条具有长远贡献</span><a href="#5-zhe-ge-xue-pai-de-na-xie-xin-tiao-ju-you-chang-yuan-gong-xian" class="header-anchor">#</a></h5></li>
-<li><h4><span id="wang-zhan">网站</span><a href="#wang-zhan" class="header-anchor">#</a></h4><h5><span id="1-jing-ji-xue-jiao-cai">1.</span><a href="#1-jing-ji-xue-jiao-cai" class="header-anchor">#</a></h5><h5><span id="2-jing-ji-xue-qi-kan-suo-yin">2.</span><a href="#2-jing-ji-xue-qi-kan-suo-yin" class="header-anchor">#</a></h5><h5><span id="2-dang-an">2.</span><a href="#2-dang-an" class="header-anchor">#</a></h5></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://spirit.cecilego.monster/fortheme/2020/06/05/The-Evolution-of-Economic-Thought-1/" data-id="ckbvtw8f50008w8sz4bwl7mqn" class="article-share-link">Share</a>
-      
-        <a href="https://spirit.cecilego.monster/fortheme/2020/06/05/The-Evolution-of-Economic-Thought-1/#disqus_thread" class="article-comment-link">Comments</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/fortheme/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a></li></ul>
@@ -1022,7 +1097,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Amusement/">Amusement</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Exploration/">Exploration</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Introduction/">Introduction</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Amusement/">Amusement</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Exploration/">Exploration</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/fortheme/categories/Introduction/">Introduction</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1032,7 +1107,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/Brain-Monster/" rel="tag">Brain Monster</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/Introduction/" rel="tag">Introduction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/LYRICS/" rel="tag">LYRICS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/What-are-the-worlds/" rel="tag">What are the worlds </a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/Brain-Monster/" rel="tag">Brain Monster</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/Introduction/" rel="tag">Introduction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/LYRICS/" rel="tag">LYRICS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/R/" rel="tag">R</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/The-Evolution-of-Economic-Thought/" rel="tag">The Evolution of Economic Thought</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/Web-Crawlers/" rel="tag">Web Crawlers</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/fortheme/tags/What-are-the-worlds/" rel="tag">What are the worlds </a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1042,7 +1117,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/fortheme/archives/2020/06/">June 2020</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/fortheme/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/fortheme/archives/2020/06/">June 2020</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/fortheme/archives/2020/05/">May 2020</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
